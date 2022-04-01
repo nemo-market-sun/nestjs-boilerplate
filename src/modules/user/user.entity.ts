@@ -32,10 +32,7 @@ export interface IUserEntity extends IAbstractEntity<UserDto> {
 
 @Entity({ name: 'users' })
 @UseDto(UserDto)
-export class UserEntity
-  extends AbstractEntity<UserDto, UserDtoOptions>
-  implements IUserEntity
-{
+export class UserEntity extends AbstractEntity<UserDto, UserDtoOptions> implements IUserEntity {
   @Column({ nullable: true })
   firstName?: string;
 

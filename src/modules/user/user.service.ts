@@ -58,10 +58,7 @@ export class UserService {
   }
 
   @Transactional()
-  async createUser(
-    userRegisterDto: UserRegisterDto,
-    file: IFile,
-  ): Promise<UserEntity> {
+  async createUser(userRegisterDto: UserRegisterDto, file: IFile): Promise<UserEntity> {
     const user = this.userRepository.create(userRegisterDto);
 
     if (file && !this.validatorService.isImage(file.mimetype)) {
@@ -85,9 +82,7 @@ export class UserService {
     return user;
   }
 
-  async getUsers(
-    pageOptionsDto: UsersPageOptionsDto,
-  ): Promise<PageDto<UserDto>> {
+  async getUsers(pageOptionsDto: UsersPageOptionsDto): Promise<PageDto<UserDto>> {
     const queryBuilder = this.userRepository.createQueryBuilder('user');
     const [items, pageMetaDto] = await queryBuilder.paginate(pageOptionsDto);
 
