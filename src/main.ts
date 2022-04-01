@@ -30,13 +30,23 @@ import { SharedModule } from './shared/shared.module';
 export async function bootstrap(): Promise<NestExpressApplication> {
   initializeTransactionalContext();
   patchTypeORMRepositoryWithBaseRepository();
-  const app = await NestFactory.create<NestExpressApplication>(
-    AppModule,
-    new ExpressAdapter(),
-    { cors: true },
-  );
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, new ExpressAdapter(), {
+    cors: true,
+  });
   app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+          styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
+          baseUri: ["'self'"],
+          fontSrc: ["'self'", 'https:', 'data:'],
+        },
+      },
+    }),
+  );
   // app.setGlobalPrefix('/api'); use api as global prefix if you don't have subdomain
   app.use(
     rateLimit({
@@ -47,26 +57,25 @@ export async function bootstrap(): Promise<NestExpressApplication> {
   app.use(compression());
   app.use(morgan('combined'));
   app.enableVersioning();
+  app.enableCors();
 
   const reflector = app.get(Reflector);
 
-  app.useGlobalFilters(
-    new HttpExceptionFilter(reflector),
-    new QueryFailedFilter(reflector),
-  );
+  app.useGlobalFilters(new HttpExceptionFilter(reflector), new QueryFailedFilter(reflector));
 
   app.useGlobalInterceptors(
     new ClassSerializerInterceptor(reflector),
-    new TranslationInterceptor(
-      app.select(SharedModule).get(TranslationService),
-    ),
+    new TranslationInterceptor(app.select(SharedModule).get(TranslationService)),
   );
 
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      forbidNonWhitelisted: false,
+      forbidUnknownValues: true,
       transform: true,
+      transformOptions: { enableImplicitConversion: true },
       dismissDefaultMessages: true,
       exceptionFactory: (errors) => new UnprocessableEntityException(errors),
     }),
@@ -100,7 +109,7 @@ export async function bootstrap(): Promise<NestExpressApplication> {
   }
 
   const port = configService.appConfig.port;
-  await app.listen(port);
+  await app.listen(port || 3000, '0.0.0.0');
 
   console.info(`server running on ${await app.getUrl()}`);
 
