@@ -81,3 +81,4 @@ db-data
 .temp
 .cache
 .adminjs/.entry.js
+swagger-spec.json
