@@ -28,6 +28,9 @@ export class UserSettingsEntity
   @Column({ default: false })
   isPhoneVerified?: boolean;
 
+  @Column({ default: false })
+  isPasswordHashed: boolean;
+
   @Column({ type: 'uuid' })
   userId?: string;
 
