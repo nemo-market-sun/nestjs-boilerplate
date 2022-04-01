@@ -48,7 +48,7 @@ module.exports = {
     'import/no-deprecated': 'error',
     'import/no-cycle': 'off',
     'import/no-unused-modules': 'error',
-    'import/no-namespace': 'error',
+    // 'import/no-namespace': 'error',
     'import/extensions': ['error', 'never'],
     'import/no-useless-path-segments': ['error', {
       noUselessIndex: true,
