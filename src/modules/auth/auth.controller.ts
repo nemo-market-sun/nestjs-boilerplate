@@ -12,6 +12,7 @@ import {
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { RoleType } from '../../constants';
+import { ApiTag } from '../../constants/api-tag';
 import { ApiFile, Auth, AuthUser } from '../../decorators';
 import { UserNotFoundException } from '../../exceptions';
 import { IFile } from '../../interfaces';
@@ -24,12 +25,9 @@ import { UserLoginDto } from './dto/UserLoginDto';
 import { UserRegisterDto } from './dto/UserRegisterDto';
 
 @Controller('auth')
-@ApiTags('auth')
+@ApiTags(ApiTag.AUTH)
 export class AuthController {
-  constructor(
-    private userService: UserService,
-    private authService: AuthService,
-  ) {}
+  constructor(private userService: UserService, private authService: AuthService) {}
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
@@ -38,9 +36,7 @@ export class AuthController {
     description: 'User info with access token',
   })
   @ApiException(() => [UserNotFoundException])
-  async userLogin(
-    @Body() userLoginDto: UserLoginDto,
-  ): Promise<LoginPayloadDto> {
+  async userLogin(@Body() userLoginDto: UserLoginDto): Promise<LoginPayloadDto> {
     const userEntity = await this.authService.validateUser(userLoginDto);
 
     const token = await this.authService.createAccessToken({
@@ -59,10 +55,7 @@ export class AuthController {
     @Body() userRegisterDto: UserRegisterDto,
     @UploadedFile() file: IFile,
   ): Promise<UserDto> {
-    const createdUser = await this.userService.createUser(
-      userRegisterDto,
-      file,
-    );
+    const createdUser = await this.userService.createUser(userRegisterDto, file);
 
     return createdUser.toDto({
       isActive: true,
