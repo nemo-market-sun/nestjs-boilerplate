@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   PrimaryGeneratedColumn,
@@ -25,10 +26,9 @@ export interface IAbstractEntity<DTO extends AbstractDto, O = never> {
   toDto(options?: O): DTO;
 }
 
-export abstract class AbstractEntity<
-  DTO extends AbstractDto = AbstractDto,
-  O = never,
-> implements IAbstractEntity<DTO, O>
+export abstract class AbstractEntity<DTO extends AbstractDto = AbstractDto, O = never>
+  extends BaseEntity
+  implements IAbstractEntity<DTO, O>
 {
   @PrimaryGeneratedColumn('uuid')
   id: Uuid;
