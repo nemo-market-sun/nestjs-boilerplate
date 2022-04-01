@@ -22,7 +22,7 @@ import { SharedModule } from './shared/shared.module';
 
 AdminJS.registerAdapter({ Database, Resource });
 
-const mo = ConfigModule.forRoot({
+const configModule = ConfigModule.forRoot({
   isGlobal: true,
   ignoreEnvFile: process.env.NODE_ENV === 'production',
   envFilePath: `.envs/.${process.env.ENVIRONMENT}/.env`,
@@ -52,7 +52,7 @@ const mo = ConfigModule.forRoot({
 
 @Module({
   imports: [
-    mo,
+    configModule,
     AuthModule,
     UserModule,
     PostModule,
