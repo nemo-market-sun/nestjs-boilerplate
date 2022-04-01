@@ -30,7 +30,10 @@ module.exports = {
     '@moneteam/nestjs',
   ],
   rules: {
-    'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'all', tabWidth: 2, bracketSpacing: true }],
+    'prettier/prettier': [
+      'error',
+      { singleQuote: true, trailingComma: 'all', tabWidth: 2, bracketSpacing: true },
+    ],
     /**
      * plugin:import
      */
@@ -43,16 +46,19 @@ module.exports = {
     'import/no-relative-packages': 'error',
     'import/newline-after-import': 'error',
     'import/no-absolute-path': 'error',
-    'import/no-default-export': 'error',
+    'import/no-default-export': 'off',
     'import/no-self-import': 'error',
     'import/no-deprecated': 'error',
     'import/no-cycle': 'off',
     'import/no-unused-modules': 'error',
     // 'import/no-namespace': 'error',
     'import/extensions': ['error', 'never'],
-    'import/no-useless-path-segments': ['error', {
-      noUselessIndex: true,
-    }],
+    'import/no-useless-path-segments': [
+      'error',
+      {
+        noUselessIndex: true,
+      },
+    ],
     'import/no-internal-modules': 'off',
     'import/order': 'off',
     /**
@@ -86,36 +92,34 @@ module.exports = {
     /**
      * plugin:typescript-eslint
      */
-    "no-unused-vars": "off",
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { argsIgnorePattern: '^_' },
-    ],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/adjacent-overload-signatures': 'error',
     '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
     '@typescript-eslint/ban-types': [
       'error',
       {
         types: {
-          'Object': {
+          Object: {
             message: 'Avoid using the `Object` type. Did you mean `object`?',
           },
-          'Function': {
-            message: 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.',
+          Function: {
+            message:
+              'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.',
           },
-          'Boolean': {
+          Boolean: {
             message: 'Avoid using the `Boolean` type. Did you mean `boolean`?',
             fixWith: 'boolean',
           },
-          'Number': {
+          Number: {
             message: 'Avoid using the `Number` type. Did you mean `number`?',
             fixWith: 'number',
           },
-          'Symbol': {
+          Symbol: {
             message: 'Avoid using the `Symbol` type. Did you mean `symbol`?',
             fixWith: 'symbol',
           },
-          'String': {
+          String: {
             message: 'Avoid using the `String` type. Did you mean `string`?',
             fixWith: 'string',
           },
@@ -123,7 +127,7 @@ module.exports = {
             message: 'Use Record<K, V> instead',
             fixWith: 'Record<K, V>',
           },
-          'object': {
+          object: {
             message: 'Use Record<K, V> instead',
             fixWith: 'Record<K, V>',
           },
@@ -163,10 +167,7 @@ module.exports = {
     '@typescript-eslint/ban-tslint-comment': 'error',
     '@typescript-eslint/consistent-indexed-object-style': 'error',
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
-    '@typescript-eslint/consistent-type-imports': [
-      'error',
-      { prefer: 'type-imports' },
-    ],
+    '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
     '@typescript-eslint/no-misused-new': 'error',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
@@ -193,7 +194,7 @@ module.exports = {
     ],
     '@typescript-eslint/semi': ['error', 'always'],
     '@typescript-eslint/naming-convention': [
-      'error',
+      'off',
       {
         selector: 'default',
         format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'],
@@ -251,14 +252,14 @@ module.exports = {
     ],
     'arrow-body-style': 'error',
     'arrow-parens': ['error', 'always'],
-    'complexity': 'off',
+    complexity: 'off',
     'no-restricted-imports': [
       'error',
       {
         paths: [
           {
             name: 'rxjs/Rx',
-            message: 'Please import directly from \'rxjs\' instead',
+            message: "Please import directly from 'rxjs' instead",
           },
         ],
       },
@@ -269,12 +270,12 @@ module.exports = {
     'no-else-return': 'error',
     'no-implicit-coercion': 'error',
     'constructor-super': 'error',
-    'yoda': 'error',
-    'strict': ['error', 'never'],
-    'curly': 'error',
+    yoda: 'error',
+    strict: ['error', 'never'],
+    curly: 'error',
     'dot-notation': 'error',
     'eol-last': 'error',
-    'eqeqeq': ['error', 'smart'],
+    eqeqeq: ['error', 'smart'],
     'guard-for-in': 'error',
     'id-match': 'error',
     'max-classes-per-file': ['error', 2],
@@ -354,7 +355,7 @@ module.exports = {
     'prefer-const': 'error',
     'prefer-object-spread': 'error',
     'quote-props': ['error', 'consistent-as-needed'],
-    'radix': 'error',
+    radix: 'error',
     'use-isnan': 'error',
     'valid-typeof': 'off',
     'space-before-function-paren': 'off',
