@@ -82,3 +82,7 @@ db-data
 .cache
 .adminjs/.entry.js
 swagger-spec.json
+tsconfig.build.tsbuildinfo
+yarn.lock
+yarn.lock
+yarn.lock
