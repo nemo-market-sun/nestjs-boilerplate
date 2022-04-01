@@ -1,7 +1,7 @@
 import type { ApiPropertyOptions } from '@nestjs/swagger';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { getVariableName } from '../common/utils';
+import { getVariableName } from '../utils/text';
 
 export function ApiBooleanProperty(
   options: Omit<ApiPropertyOptions, 'type'> = {},
@@ -16,8 +16,7 @@ export function ApiBooleanPropertyOptional(
 }
 
 export function ApiUUIDProperty(
-  options: Omit<ApiPropertyOptions, 'type' | 'format'> &
-    Partial<{ each: boolean }> = {},
+  options: Omit<ApiPropertyOptions, 'type' | 'format'> & Partial<{ each: boolean }> = {},
 ): PropertyDecorator {
   return ApiProperty({
     type: options?.each ? [String] : String,

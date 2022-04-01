@@ -1,18 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/no-unsafe-argument */
 import type { Type } from '@nestjs/common';
 import { applyDecorators, UseInterceptors } from '@nestjs/common';
-import {
-  PARAMTYPES_METADATA,
-  ROUTE_ARGS_METADATA,
-} from '@nestjs/common/constants';
+import { PARAMTYPES_METADATA, ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import { RouteParamtypes } from '@nestjs/common/enums/route-paramtypes.enum';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import {
-  ApiBody,
-  ApiConsumes,
-  ApiExtraModels,
-  getSchemaPath,
-} from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
 import type {
   ReferenceObject,
   SchemaObject,
@@ -29,20 +21,13 @@ function explore(instance: Object, propertyKey: string | symbol) {
     propertyKey,
   );
   const routeArgsMetadata =
-    Reflect.getMetadata(
-      ROUTE_ARGS_METADATA,
-      instance.constructor,
-      propertyKey,
-    ) || {};
+    Reflect.getMetadata(ROUTE_ARGS_METADATA, instance.constructor, propertyKey) || {};
 
-  const parametersWithType = _.mapValues(
-    reverseObjectKeys(routeArgsMetadata),
-    (param) => ({
-      type: types[param.index],
-      name: param.data,
-      required: true,
-    }),
-  );
+  const parametersWithType = _.mapValues(reverseObjectKeys(routeArgsMetadata), (param) => ({
+    type: types[param.index],
+    name: param.data,
+    required: true,
+  }));
 
   for (const [key, value] of Object.entries(parametersWithType)) {
     const keyPair = key.split(':');
@@ -116,7 +101,7 @@ export function ApiFile(
   const apiFileInterceptors = filesArray.map((file) =>
     file.isArray
       ? UseInterceptors(FilesInterceptor(file.name))
-      : UseInterceptors(FileInterceptor(file.name))
+      : UseInterceptors(FileInterceptor(file.name)),
   );
 
   return applyDecorators(
