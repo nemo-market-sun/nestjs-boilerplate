@@ -17,10 +17,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
       args: Record<string, unknown>;
     };
 
-    message = await this.i18n.translate(message.key, {
-      lang: ctx.getRequest().i18nLang,
-      args: message.args,
-    });
+    if (message.key) {
+      message = await this.i18n.translate(message.key, {
+        lang: ctx.getRequest().i18nLang,
+        args: message.args,
+      });
+    }
 
     response.status(statusCode).json({ statusCode, message });
   }
