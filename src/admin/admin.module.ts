@@ -22,7 +22,9 @@ export const adminjsModule = AdminModule.createAdminAsync({
     },
     auth: {
       async authenticate(email, password) {
-        return Promise.resolve({ email, password });
+        if (email === config.get('ADMIN_USERNAME') && password === config.get('ADMIN_PASSWORD')) {
+          return Promise.resolve({ email, password });
+        }
       },
       cookieName: config.get('COOKIE_NAME') || 'labcode',
       cookiePassword: config.get('COOKIE_PASSWORD') || 'labcode_password',
