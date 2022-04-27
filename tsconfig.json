@@ -16,7 +16,12 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "incremental": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "strictBindCallApply": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "jsx": "react"
   },
   "include": [
     "src/**/*"
