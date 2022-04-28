@@ -1,16 +1,16 @@
 import './boilerplate.polyfill';
 
-import { Database, Resource } from '@adminjs/typeorm';
+// import { Database, Resource } from '@adminjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import AdminJS from 'adminjs';
+// import AdminJS from 'adminjs';
 import * as joi from 'joi';
 import { I18nJsonParser, I18nModule } from 'nestjs-i18n';
 import path from 'path';
 
-import { adminjsModule } from './admin/admin.module';
+// import { adminjsModule } from './admin/admin.module';
 import { AppController } from './app.controller';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { AuthModule } from './modules/auth/auth.module';
@@ -19,7 +19,7 @@ import { UserModule } from './modules/user/user.module';
 import { ApiConfigService } from './shared/services/api-config.service';
 import { SharedModule } from './shared/shared.module';
 
-AdminJS.registerAdapter({ Database, Resource });
+// AdminJS.registerAdapter({ Database, Resource });
 
 const configModule = ConfigModule.forRoot({
   isGlobal: true,
@@ -72,7 +72,7 @@ const configModule = ConfigModule.forRoot({
       inject: [ApiConfigService],
     }),
     HealthCheckerModule,
-    adminjsModule,
+    // adminjsModule,
   ],
   providers: [
     {
