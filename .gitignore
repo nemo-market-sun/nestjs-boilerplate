@@ -85,3 +85,6 @@ db-data
 swagger-spec.json
 tsconfig.build.tsbuildinfo
 yarn.lock
+
+# Build
+dist.zip

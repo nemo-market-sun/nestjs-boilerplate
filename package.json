@@ -6,9 +6,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "prebuild:prod": "rimraf dist",
+    "prebuild:prod": "rimraf dist & rimraf dist.zip",
     "build:prod": "tsc -p tsconfig.build.json && cp package.json dist/ && cp -r .ebextensions dist/.ebextensions/ && cp -r .platform/ dist/.platform/",
-    "postbuild:prod": "copyfiles --up 1 src/**/*.json dist",
+    "postbuild:prod": "copyfiles --up 1 src/**/*.json dist && cd dist && zip ../dist.zip -r * .[^.]*",
     "start:hmr": "node dist/main.hmr.ts",
     "start:dev": "ts-node src/main.ts",
     "start:prod": "node dist/main.js",
@@ -144,7 +144,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
-    "@types/react": "^18.0.8"
+    "@types/react": "~17.0.39"
   },
   "jest": {
     "moduleFileExtensions": [
