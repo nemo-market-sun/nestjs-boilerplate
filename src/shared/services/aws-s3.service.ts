@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import AWS from 'aws-sdk';
+import { S3 } from '@aws-sdk/client-s3';
 import mime from 'mime-types';
 
 import type { IFile } from '../../interfaces';
@@ -8,36 +8,32 @@ import { GeneratorService } from './generator.service';
 
 @Injectable()
 export class AwsS3Service {
-  private readonly s3: AWS.S3;
+  private readonly s3;
 
-  constructor(
-    public configService: ApiConfigService,
-    public generatorService: GeneratorService,
-  ) {
+  constructor(public configService: ApiConfigService, public generatorService: GeneratorService) {
     const awsS3Config = configService.awsS3Config;
 
-    const options: AWS.S3.Types.ClientConfiguration = {
-      apiVersion: awsS3Config.bucketApiVersion,
+    const options = {
       region: awsS3Config.bucketRegion,
     };
 
-    this.s3 = new AWS.S3(options);
+    this.s3 = new S3(options);
   }
 
   async uploadImage(file: IFile): Promise<string> {
-    const fileName = this.generatorService.fileName(
-      <string>mime.extension(file.mimetype),
-    );
-    const key = 'images/' + fileName;
-    await this.s3
-      .putObject({
-        Bucket: this.configService.awsS3Config.bucketName,
-        Body: file.buffer,
-        ACL: 'public-read',
-        Key: key,
-      })
-      .promise();
-
-    return key;
+    // async uploadImage(file: IFile): Promise<string> {
+    // const fileName = this.generatorService.fileName(<string>mime.extension(file.mimetype));
+    // const key = 'images/' + fileName;
+    // await this.s3
+    //   .putObject({
+    //     Bucket: this.configService.awsS3Config.bucketName,
+    //     Body: file.buffer,
+    //     ACL: 'public-read',
+    //     Key: key,
+    //   })
+    //   .promise();
+    //
+    // return key;
+    return await null;
   }
 }

@@ -11,11 +11,11 @@ export class AppController {
   @Get()
   @ApiExcludeEndpoint()
   @ApiOperation({
-    summary: '어드민 리다이렉트 API',
-    description: '어드민으로 리다이렉트하는 API 입니다.',
+    summary: '도큐먼트 리다이렉트 API',
+    description: '도큐먼트로 리다이렉트하는 API 입니다.',
   })
   @ApiOkResponse()
   root(@Res() res: Response) {
-    return res.redirect('/admin');
+    return res.redirect('/docs');
   }
 }
